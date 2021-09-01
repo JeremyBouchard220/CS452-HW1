@@ -71,10 +71,39 @@ static void put(Rep r, End e, Data d)
   }
 }
 
+/**
+ * This method returns the data from a desired index while leaving the list unchanged.
+ * @param r The list appending to
+ * @param e The head or tail 
+ * @param i The desired index
+ * @return data
+ * 
+ */
 static Data ith(Rep r, End e, int i) 
 { 
-  
-
+  if(e==Tail)
+  {
+    Node req=r->ht[Tail];
+    for(int k=0; k!=i; k++)
+    {
+      req=req->np[Tail];
+    }
+    return req->data;
+  }
+  if(e==Head)
+  {
+    Node req=r->ht[Head];
+    for(int k=0; k!=i; k++)
+    {
+      req=req->np[Head];
+    }
+    return req->data;
+  }
+  if(i<0 || i+1 > r->len)
+  {
+    printf("The desired index is not in the list.\n");
+    return NULL;
+  }
   return 0; 
 }
 
