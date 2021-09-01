@@ -23,10 +23,74 @@ static Rep rep(Deq q) {
   return (Rep)q;
 }
 
-static void put(Rep r, End e, Data d) {}
-static Data ith(Rep r, End e, int i) { return 0; }
-static Data get(Rep r, End e) { return 0; }
-static Data rem(Rep r, End e, Data d) { return 0; }
+/**
+ * Using this method, you can append an item to the beginning or end of a list at the head or tail position.
+ * @param r The list appending to
+ * @param e The head or tail enum
+ * @param d The data being added
+ * @return void
+ * 
+ */
+static void put(Rep r, End e, Data d) 
+{
+  //This section adds at the tail
+  if(e==Tail)
+  {
+    Node start = malloc(sizeof(*start));
+    start->data=d;
+    if(r->len==0)
+    {
+      r->ht[Tail]=start;
+      r->ht[Head]=start;
+    }
+    else
+    {
+      r->ht[Tail]->np[Head]=start;
+      start->np[Tail]=r->ht[Tail];
+      r->ht[Tail]=start;
+    }
+    r->len=r->len+1;
+  }
+  //This section adds at the head
+  if(e==Head)
+  {
+    Node start = malloc(sizeof(*start));
+    start->data=d;
+    if(r->len==0)
+    {
+      r->ht[Head]=start;
+      r->ht[Tail]=start;
+    }
+    else
+    {
+      start->np[Head]=r->ht[Head];
+      r->ht[Head]->np[Tail]=start;
+      r->ht[Head]=start;
+    }
+    r->len=r->len+1;
+  }
+}
+
+static Data ith(Rep r, End e, int i) 
+{ 
+  
+
+  return 0; 
+}
+
+static Data get(Rep r, End e) 
+{
+
+
+  return 0;
+}
+
+static Data rem(Rep r, End e, Data d) 
+{
+  
+
+  return 0;  
+}
 
 extern Deq deq_new() {
   Rep r=(Rep)malloc(sizeof(*r));
