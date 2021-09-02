@@ -162,11 +162,99 @@ static Data get(Rep r, End e)
   return 0;
 }
 
+/**
+ * This method removes specified data if it is found in the desired list.
+ * @param r The desired list
+ * @param e The head or tail enum
+ * @param d The specified data to be found
+ * @return data
+ * 
+ */
 static Data rem(Rep r, End e, Data d) 
 {
-  
-
-  return 0;  
+  //Takes care of Tail
+  if(e==Tail)
+  {
+    Node pos=r->ht[Tail];
+    while(pos != NULL)
+    {
+      //This section covers if the data is equal
+      if(pos->data == d)
+      {
+        if(pos==r->ht[Head]])
+        {
+          return get(r,Head);
+        }
+        if(pos==r->ht[Tail])
+        {
+          return get(r,Tail);
+        }
+        Data rem_data=pos->data;
+        pos->np[Tail]->np[Head]=pos->np[Head];
+        pos->np[Head]->np[Tail]=pos->np[Tail];
+        free(pos);
+        r->len=r->len-1;
+        return rem_data;
+      }
+      //this section covers if data isn't equal
+      else
+      {
+        if(pos==r->ht[Head])
+        {
+          break;
+        }
+        else
+        {
+          pos=pos->np[Tail];
+        }
+      }
+    }
+  }
+  //Takes care of Head
+  if(e==Head)
+  {
+    Node pos=r->ht[Head];
+    while(pos != NULL)
+    {
+      if(pos->data == d)
+      {
+        if(pos==r->ht[Head])
+        {
+          return get(r,Head);
+        }
+        if(pos==r->ht[Tail])
+        {
+          return get(r,Tail);
+        }
+        Data rem_data = pos->data;
+        pos->np[Tail]->np[Head]=pos->np[Head];
+        pos->np[Head]->np[Tail]=pos->np[Tail];
+        free(pos);
+        r->len=r->len-1;
+        return rem_data;
+      }
+      else
+      {
+        if(pos==r->ht[Tail])
+        {
+          break;
+        }
+        else
+        {
+          pos=pos->np[Head];
+        }
+      }
+    }
+  }
+  //Takes care of empty list
+  if(r->len==0)
+  {
+    printf("Data cannot be removed due to desired list being empty.\n");
+    return NULL;
+  }
+  //this section only returns in the break is activated.
+  printf("Data was not found in desired list.\n");
+  return NULL;  
 }
 
 extern Deq deq_new() {
