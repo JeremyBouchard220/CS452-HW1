@@ -73,14 +73,15 @@ static void put(Rep r, End e, Data d)
 
 /**
  * This method returns the data from a desired index while leaving the list unchanged.
- * @param r The list appending to
- * @param e The head or tail 
+ * @param r The list being parsed
+ * @param e The head or tail enum
  * @param i The desired index
  * @return data
  * 
  */
 static Data ith(Rep r, End e, int i) 
 { 
+  //this section covers starting at the tail
   if(e==Tail)
   {
     Node req=r->ht[Tail];
@@ -90,6 +91,7 @@ static Data ith(Rep r, End e, int i)
     }
     return req->data;
   }
+  //this section covers starting at the head
   if(e==Head)
   {
     Node req=r->ht[Head];
@@ -99,6 +101,7 @@ static Data ith(Rep r, End e, int i)
     }
     return req->data;
   }
+  //covers out of bounds index
   if(i<0 || i+1 > r->len)
   {
     printf("The desired index is not in the list.\n");
@@ -107,10 +110,55 @@ static Data ith(Rep r, End e, int i)
   return 0; 
 }
 
+/**
+ * This method removes a node from the beginning or end of the desired list.
+ * @param r The list appending from
+ * @param e The head or tail enum
+ * @return data
+ * 
+ */
 static Data get(Rep r, End e) 
 {
-
-
+  //this section pops the tail
+  if(e==Tail)
+  {
+    if(r->len > 0)
+    {
+      Data d=r->ht[Tail]->data;
+      if(r->ht[Tail]->np[Tail] != NULL)
+      {
+        r->ht[Tail]->np[Tail]->np[Head] = NULL;
+      }
+      Node back=r->ht[Tail]->np[Tail];
+      free(r->ht[Tail]);
+      r->ht[Tail];
+      r->len=r->len+1;
+      return d;
+    }
+  }
+  //this section pops the head
+  if(e==Head)
+  {
+    if(r->len > 0)
+    {
+      Data d=r->ht[Head]->data;
+      if(r->ht[Head]->np[Head] != NULL)
+      {
+        r->ht[Head]->np[Head]->np[Tail] = NULL;
+      }
+      Node ahead = r->ht[Head]->np[Head];
+      free(r->ht[Head]);
+      r->ht[Head]=ahead;
+      r->len=r->len+1;
+      return d;
+    }
+  }
+  //case for empty list
+  if(r->len==0)
+  {
+    printf("Unable to remove from empty list.\n");
+    return NULL;
+  }
   return 0;
 }
 
