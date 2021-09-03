@@ -36,7 +36,8 @@ static void put(Rep r, End e, Data d)
   //This section adds at the tail
   if(e==Tail)
   {
-    Node start = malloc(sizeof(*start));
+    Node start = malloc(sizeof(struct Node));
+    //Node start = malloc(sizeof(*start));
     start->data=d;
     if(r->len==0)
     {
@@ -54,7 +55,8 @@ static void put(Rep r, End e, Data d)
   //This section adds at the head
   if(e==Head)
   {
-    Node start = malloc(sizeof(*start));
+    Node start = malloc(sizeof(struct Node));
+    //Node start = malloc(sizeof(*start));
     start->data=d;
     if(r->len==0)
     {
@@ -120,11 +122,16 @@ static Data ith(Rep r, End e, int i)
 static Data get(Rep r, End e) 
 {
   //this section pops the tail
-  if(e==Tail)
-  {
-    if(r->len > 0)
+  // if(e==Tail)
+  // {
+    if(r->len > 2)
     {
       Data d=r->ht[Tail]->data;
+      int i = 0;
+      if(e==Head)
+      {
+        i = 1;
+      }
       if(r->ht[Tail]->np[Tail] != NULL)
       {
         r->ht[Tail]->np[Tail]->np[Head] = NULL;
@@ -132,27 +139,51 @@ static Data get(Rep r, End e)
       Node back=r->ht[Tail]->np[Tail];
       free(r->ht[Tail]);
       r->ht[Tail]=back;
-      r->len=r->len+1;
+      r->len=r->len-1;
       return d;
     }
-  }
-  //this section pops the head
-  if(e==Head)
-  {
-    if(r->len > 0)
+    if(r->len == 2)
     {
-      Data d=r->ht[Head]->data;
-      if(r->ht[Head]->np[Head] != NULL)
+      Data d=r->ht[e]->data;
+      int i = 0;
+      if(e==Head)
       {
-        r->ht[Head]->np[Head]->np[Tail] = NULL;
+        i = 1;
       }
-      Node ahead = r->ht[Head]->np[Head];
-      free(r->ht[Head]);
-      r->ht[Head]=ahead;
-      r->len=r->len+1;
+      Node back=r->ht[e];
+      r->ht[i]=back;
+      back->np[Head]=NULL;
+      back->np[Tail]=NULL;
+      r->len=r->len-1;
+      free(r->ht[e]);
       return d;
     }
-  }
+    if(r->len == 1)
+    {
+      Node back=r->ht[e];
+      r->ht[Head]=NULL;
+      r->ht[Tail]=NULL;
+      free(r->ht[e]);
+      return back->data;
+    }
+  //}
+  //this section pops the head
+  // if(e==Head)
+  // {
+  //   if(r->len > 0)
+  //   {
+  //     Data d=r->ht[Head]->data;
+  //     if(r->ht[Head]->np[Head] != NULL)
+  //     {
+  //       r->ht[Head]->np[Head]->np[Tail] = NULL;
+  //     }
+  //     Node ahead = r->ht[Head]->np[Head];
+  //     free(r->ht[Head]);
+  //     r->ht[Head]=ahead;
+  //     r->len=r->len-1;
+  //     return d;
+  //   }
+  // }
   //case for empty list
   if(r->len==0)
   {
@@ -185,16 +216,19 @@ static Data rem(Rep r, End e, Data d)
         {
           return get(r,Head);
         }
-        if(pos==r->ht[Tail])
+        else if(pos==r->ht[Tail])
         {
           return get(r,Tail);
         }
-        Data rem_data=pos->data;
-        pos->np[Tail]->np[Head]=pos->np[Head];
-        pos->np[Head]->np[Tail]=pos->np[Tail];
-        free(pos);
-        r->len=r->len-1;
-        return rem_data;
+        else
+        {
+          Data rem_data=pos->data;
+          pos->np[Tail]->np[Head]=pos->np[Head];
+          pos->np[Head]->np[Tail]=pos->np[Tail];
+          free(pos);
+          r->len=r->len-1;
+          return rem_data;
+        }
       }
       //this section covers if data isn't equal
       else
@@ -222,16 +256,19 @@ static Data rem(Rep r, End e, Data d)
         {
           return get(r,Head);
         }
-        if(pos==r->ht[Tail])
+        else if(pos==r->ht[Tail])
         {
           return get(r,Tail);
         }
-        Data rem_data = pos->data;
-        pos->np[Tail]->np[Head]=pos->np[Head];
-        pos->np[Head]->np[Tail]=pos->np[Tail];
-        free(pos);
-        r->len=r->len-1;
-        return rem_data;
+        else
+        {
+          Data rem_data = pos->data;
+          pos->np[Tail]->np[Head]=pos->np[Head];
+          pos->np[Head]->np[Tail]=pos->np[Tail];
+          free(pos);
+          r->len=r->len-1;
+          return rem_data;
+        }
       }
       else
       {
