@@ -1,1 +1,1 @@
-main.o: main.c deq.h
+main.o: main.c deq.h main.h

@@ -129,9 +129,9 @@ static Data get(Rep r, End e)
       {
         r->ht[Tail]->np[Tail]->np[Head] = NULL;
       }
-      Node back=r->ht[Tail]->np[Tail];
+      //Node back=r->ht[Tail]->np[Tail];
       free(r->ht[Tail]);
-      r->ht[Tail];
+      //r->ht[Tail];
       r->len=r->len+1;
       return d;
     }
@@ -181,7 +181,7 @@ static Data rem(Rep r, End e, Data d)
       //This section covers if the data is equal
       if(pos->data == d)
       {
-        if(pos==r->ht[Head]])
+        if(pos==r->ht[Head])
         {
           return get(r,Head);
         }
