@@ -7,17 +7,16 @@
 
 int main()
 {
-  test1();
-  //test2();
-  test3();
-  test4();
-  test5();
-  test6();
-  test7();
-  //test8();
-  test9();
-  test10();
-  
+  one();
+  two();
+  three();
+  four();
+  five();
+  six();
+  seven();
+  eight();
+  nine();
+  ten();
   // Deq q=deq_new();
 
   // char *s=deq_str(q,0);
@@ -28,239 +27,215 @@ int main()
   // return 0;
 }
 
-/**
- * Test 1: Put data in empty list at head.
- */
-static void test1(){
+// First Test: Empty->puthead
+static void one()
+{
   Deq q=deq_new();
-  char value = 'e';
-  char *pointer = &value;
-  Data d = pointer;
+  char letter1 = 'z';
+  char *point = &letter1;
+  Data d = point;
   deq_head_put(q,d);
-  if(1==deq_len(q)){
-    printf("Test 1 Pass\n");
+  if(deq_len(q)==1)
+  {
+    printf("Pass:1\n");
   }
-  else{
-    printf("Test 1 Fail\n");
-  }
-  deq_head_get(q);
-  deq_del(q,0);
-  }
-/**
- * Test 2: Get data from empty list at head.
- */
-static void test2(){
-  Deq q=deq_new();
-  if(deq_head_get(q)==NULL){
-    printf("Test 2 Pass\n");
-  }
-  else{
-    printf("Test 2 Fail\n");
-  }
-   deq_del(q,0);
-  }
-/**
-   * Test 3: Put three items in then get from tail
-   */
-static void test3(){
-  Deq q=deq_new();
-  char value = 'a';
-  char *pointer = &value;
-  Data d = pointer;
-  deq_head_put(q,d);
-
-  char value1 = 'b';
-  char *pointer1 = &value1;
-  Data d1 = pointer1;
-  deq_head_put(q,d1);
-
-  char value2 = 'c';
-  char *pointer2 = &value2;
-  Data d2 = pointer2;
-  deq_head_put(q,d2);
-
-  if(pointer==deq_tail_get(q)){
-    printf("Test 3 Pass\n");
-  }
-  else{
-    printf("Test 3 Fail\n");
-  }
-  deq_head_get(q);
-  deq_head_get(q);
-  deq_del(q,0);
-  }
-/**
-* Test 4: Put three items in then get from head
-*/
-static void test4(){
-  Deq q=deq_new();
-  char value = 'a';
-  char *pointer = &value;
-  Data d = pointer;
-  deq_head_put(q,d);
-
-  char value1 = 'b';
-  char *pointer1 = &value1;
-  Data d1 = pointer1;
-  deq_head_put(q,d1);
-
-  char value2 = 'c';
-  char *pointer2 = &value2;
-  Data d2 = pointer2;
-  deq_head_put(q,d2);
-
-  if(pointer2==deq_head_get(q)){
-    printf("Test 4 Pass\n");
-  }
-  else{
-    printf("Test 4 Fail\n");
-  }
-  deq_head_get(q);
-  deq_head_get(q);
-  deq_del(q,0);
-  }
-/**
-* Test 5: Put three items at tail then get from head
-*/
-static void test5(){
-  Deq q=deq_new();
-  char value = 'a';
-  char *pointer = &value;
-  Data d = pointer;
-  deq_tail_put(q,d);
-
-  char value1 = 'b';
-  char *pointer1 = &value1;
-  Data d1 = pointer1;
-  deq_tail_put(q,d1);
-
-  char value2 = 'c';
-  char *pointer2 = &value2;
-  Data d2 = pointer2;
-  deq_tail_put(q,d2);
-
-  if(pointer==deq_head_get(q)){
-    printf("Test 5 Pass\n");
-  }
-  else{
-    printf("Test 5 Fail\n");
-  }
-  deq_head_get(q);
-  deq_head_get(q);
-  deq_del(q,0);
-  }
-/**
- * Test 6: Put data in empty list at tail.
- */
-static void test6(){
-  Deq q=deq_new();
-  char value = 'e';
-  char *pointer = &value;
-  Data d = pointer;
-  deq_tail_put(q,d);
-  if(1==deq_len(q)){
-    printf("Test 6 Pass\n");
-  }
-  else{
-    printf("Test 6 Fail\n");
+  else
+  {
+    printf("Fail:1\n");
   }
   deq_head_get(q);
   deq_del(q,0);
-  }
-/**
- * Test 7: Put data in empty list at head, remove it, then put at head.
- */
-static void test7(){
+}
+
+// Second Test: Empty->Gethead
+static void two()
+{
   Deq q=deq_new();
-  char value = 'e';
-  char *pointer = &value;
-  Data d = pointer;
-  deq_head_put(q,d);
-  deq_head_get(q);
-  char value1 = 'f';
-  char *pointer1 = &value1;
-  Data f = pointer1;
-  deq_head_put(q,f);
-  if(deq_len(q)==1 && deq_head_get(q)==pointer1){
-    printf("Test 7 Pass\n");
+  if(deq_head_get(q)==NULL)
+  {
+    printf("Pass:2\n");
   }
-  else{
-    printf("Test 7 Fail\n");
-  }
-  deq_del(q,0);
-  }
-/**
- * Test 8: Get index 0 (head) from empty list
- */
-static void test8(){
-  Deq q=deq_new();
-  if(deq_head_ith(q,0)==NULL){
-    printf("Test 8 Pass\n");
-  }
-  else{
-    printf("Test 8 Fail\n");
+  else
+  {
+    printf("Fail:2\n");
   }
   deq_del(q,0);
 }
-/**
-* Test 9: Put three items in then get from index 1 (head).
-*/
-static void test9(){
+
+// Third Test: Empty->Remhead
+static void three()
+{
   Deq q=deq_new();
-  char value = 'a';
-  char *pointer = &value;
-  Data d = pointer;
+  if(deq_head_rem(q,0)==NULL)
+  {
+    printf("Pass:3\n");
+  }
+  else
+  {
+    printf("Fail:3\n");
+  }
+  deq_del(q,0);
+}
+
+// Fourth Test: Empty->Gettail
+static void four()
+{
+  Deq q=deq_new();
+  if(deq_tail_get(q)==NULL)
+  {
+    printf("Pass:4\n");
+  }
+  else
+  {
+    printf("Fail:4\n");
+  }
+  deq_del(q,0);
+}
+
+// Fifth Test: Empty->Remtail
+static void five()
+{
+  Deq q=deq_new();
+  if(deq_head_rem(q,0)==NULL)
+  {
+    printf("Pass:5\n");
+  }
+  else
+  {
+    printf("Fail:5\n");
+  }
+  deq_del(q,0);
+}
+
+// Sixth Test: Empty->Puttail
+static void six()
+{
+  Deq q=deq_new();
+  char letter1 = 'z';
+  char *point = &letter1;
+  Data d = point;
+  deq_tail_put(q,d);
+  if(deq_len(q)==1)
+  {
+    printf("Pass:6\n");
+  }
+  else
+  {
+    printf("Fail:6\n");
+  }
+  //deq_tail_get(q);
+  deq_del(q,0);
+}
+
+// Seventh Test: Put->Put->Gettail
+static void seven()
+{
+  Deq q=deq_new();
+  char letter1 = 'z';
+  char *point = &letter1;
+  Data d = point;
   deq_head_put(q,d);
 
-  char value1 = 'b';
-  char *pointer1 = &value1;
-  Data d1 = pointer1;
+  char letter2 = 'y';
+  char *point2 = &letter2;
+  Data d1 = point2;
   deq_head_put(q,d1);
 
-  char value2 = 'c';
-  char *pointer2 = &value2;
-  Data d2 = pointer2;
-  deq_head_put(q,d2);
-
-  if(pointer1==deq_head_ith(q,1)){
-    printf("Test 9 Pass\n");
+  if(point==deq_tail_get(q))
+  {
+    printf("Pass:7\n");
   }
-  else{
-    printf("Test 9 Fail\n");
+  else
+  {
+    printf("Fail:7\n");
   }
-  deq_head_get(q);
-  deq_head_get(q);
-  deq_head_get(q);
+  //deq_head_get(q);
   deq_del(q,0);
-  }
-/**
-* Test 10: Put three items in then get from index 1 (tail).
-*/
-static void test10(){
+}
+
+// Eigth Test: Put->Put->GetHead
+static void eight()
+{
   Deq q=deq_new();
-  char value = 'a';
-  char *pointer = &value;
-  Data d = pointer;
+  char letter1 = 'z';
+  char *point = &letter1;
+  Data d = point;
   deq_head_put(q,d);
 
-  char value1 = 'b';
-  char *pointer1 = &value1;
-  Data d1 = pointer1;
+  char letter2 = 'y';
+  char *point2 = &letter2;
+  Data d1 = point2;
   deq_head_put(q,d1);
 
-  char value2 = 'c';
-  char *pointer2 = &value2;
-  Data d2 = pointer2;
-  deq_head_put(q,d2);
-
-  if(pointer1==deq_tail_ith(q,1)){
-    printf("Test 10 Pass\n");
+  if(point2==deq_head_get(q))
+  {
+    printf("Pass:8\n");
   }
-  else{
-    printf("Test 10 Fail\n");
+  else
+  {
+    printf("Fail:8\n");
   }
-  deq_head_get(q);
-  deq_head_get(q);
-  deq_head_get(q);
+  //deq_head_get(q);
   deq_del(q,0);
+}
+
+// Ninth Test: Put->Put->Remtail
+static void nine()
+{
+  Deq q=deq_new();
+  char letter1 = 'z';
+  char *point = &letter1;
+  Data d = point;
+  deq_head_put(q,d);
+
+  char letter2 = 'y';
+  char *point2 = &letter2;
+  Data d1 = point2;
+  deq_head_put(q,d1);
+
+  deq_tail_rem(q,d);
+
+  if(point2==deq_tail_get(q))
+  {
+    printf("Pass:9\n");
+    
+  }
+  else
+  {
+    printf("Fail:9\n");
+    
+  }
+  //deq_head_get(q);
+  deq_del(q,0);
+}
+
+// Tenth Test: Put->Put->Remhead
+static void ten()
+{
+  Deq q=deq_new();
+  char letter1 = 'z';
+  char *point = &letter1;
+  Data d = point;
+  deq_head_put(q,d);
+
+  char letter2 = 'y';
+  char *point2 = &letter2;
+  Data d1 = point2;
+  deq_head_put(q,d1);
+
+  
+  Data test = deq_head_rem(q,d1);
+  char thing = *(char*)test;
+  printf("%c", thing);
+
+  if(point==deq_head_get(q))
+  {
+    printf("Pass:10\n");
+  }
+  else
+  {
+    printf("Fail:10\n");
+  }
+  deq_head_get(q);
+  //deq_del(q,0);
 }

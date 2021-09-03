@@ -129,9 +129,9 @@ static Data get(Rep r, End e)
       {
         r->ht[Tail]->np[Tail]->np[Head] = NULL;
       }
-      //Node back=r->ht[Tail]->np[Tail];
+      Node back=r->ht[Tail]->np[Tail];
       free(r->ht[Tail]);
-      //r->ht[Tail];
+      r->ht[Tail]=back;
       r->len=r->len+1;
       return d;
     }
@@ -156,7 +156,7 @@ static Data get(Rep r, End e)
   //case for empty list
   if(r->len==0)
   {
-    printf("Unable to remove from empty list.\n");
+    printf("List is empty, can't remove.\n");
     return NULL;
   }
   return 0;
@@ -249,11 +249,11 @@ static Data rem(Rep r, End e, Data d)
   //Takes care of empty list
   if(r->len==0)
   {
-    printf("Data cannot be removed due to desired list being empty.\n");
+    printf("List is empty, data cannot be removed.\n");
     return NULL;
   }
   //this section only returns in the break is activated.
-  printf("Data was not found in desired list.\n");
+  printf("List does not contain this data.\n");
   return NULL;  
 }
 
