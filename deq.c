@@ -46,9 +46,10 @@ static void put(Rep r, End e, Data d)
     }
     else
     {
-      r->ht[Tail]->np[Head]=start;
-      start->np[Tail]=r->ht[Tail];
+      Node prevTail = r->ht[Tail];
       r->ht[Tail]=start;
+      prevTail->np[Tail]=start;
+      start->np[Head]=prevTail;
     }
     r->len=r->len+1;
   }
@@ -65,9 +66,10 @@ static void put(Rep r, End e, Data d)
     }
     else
     {
-      start->np[Head]=r->ht[Head];
-      r->ht[Head]->np[Tail]=start;
+      Node prevHead = r->ht[Head];
       r->ht[Head]=start;
+      prevHead->np[Head]=start;
+      start->np[Tail]=prevHead;
     }
     r->len=r->len+1;
   }
