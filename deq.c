@@ -37,6 +37,7 @@ static void put(Rep r, End e, Data d)
   if(e==Tail)
   {
     Node start = malloc(sizeof(struct Node));
+    memset(start, 0, sizeof(*start));
     //Node start = malloc(sizeof(*start));
     start->data=d;
     if(r->len==0)
@@ -57,6 +58,7 @@ static void put(Rep r, End e, Data d)
   if(e==Head)
   {
     Node start = malloc(sizeof(struct Node));
+    memset(start, 0, sizeof(*start));
     //Node start = malloc(sizeof(*start));
     start->data=d;
     if(r->len==0)
@@ -85,6 +87,12 @@ static void put(Rep r, End e, Data d)
  */
 static Data ith(Rep r, End e, int i) 
 { 
+  //covers out of bounds index
+  if(i<0 && i+1 > r->len)
+  {
+    printf("The desired index is not in the list.\n");
+    return NULL;
+  }
   //this section covers starting at the tail
   if(e==Tail)
   {
@@ -105,12 +113,6 @@ static Data ith(Rep r, End e, int i)
     }
     return req->data;
   }
-  //covers out of bounds index
-  if(i<0 || i+1 > r->len)
-  {
-    printf("The desired index is not in the list.\n");
-    return NULL;
-  }
   return 0; 
 }
 
@@ -124,23 +126,20 @@ static Data ith(Rep r, End e, int i)
 static Data get(Rep r, End e) 
 {
   //this section pops the tail
-  // if(e==Tail)
-  // {
+  //if(e==Tail)
+  //{
     if(r->len > 2)
     {
-      Data d=r->ht[Tail]->data;
+      Data d=r->ht[e]->data;
       int i = 0;
       if(e==Head)
       {
         i = 1;
       }
-      if(r->ht[Tail]->np[Tail] != NULL)
-      {
-        r->ht[Tail]->np[Tail]->np[Head] = NULL;
-      }
-      Node back=r->ht[Tail]->np[Tail];
-      free(r->ht[Tail]);
-      r->ht[Tail]=back;
+      Node nxpvNode = r->ht[e]->np[i];
+      nxpvNode->np[e]=NULL;
+      free(r->ht[e]);
+      r->ht[e]=nxpvNode;
       r->len=r->len-1;
       return d;
     }
@@ -152,12 +151,14 @@ static Data get(Rep r, End e)
       {
         i = 1;
       }
-      Node back=r->ht[e];
-      r->ht[i]=back;
-      back->np[Head]=NULL;
-      back->np[Tail]=NULL;
-      r->len=r->len-1;
+      
+      Node nxpvNode = r->ht[e]->np[i];
+      nxpvNode->np[Head]=NULL;
+      nxpvNode->np[Tail]=NULL;
       free(r->ht[e]);
+      r->ht[Head]=nxpvNode;
+      r->ht[Tail]=nxpvNode;
+      r->len=r->len-1;
       return d;
     }
     if(r->len == 1)
