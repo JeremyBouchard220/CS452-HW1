@@ -88,7 +88,7 @@ static void put(Rep r, End e, Data d)
 static Data ith(Rep r, End e, int i) 
 { 
   //covers out of bounds index
-  if(i<0 && i+1 > r->len)
+  if(i<0 || i >= r->len)
   {
     printf("The desired index is not in the list.\n");
     return NULL;
@@ -99,7 +99,7 @@ static Data ith(Rep r, End e, int i)
     Node req=r->ht[Tail];
     for(int k=0; k!=i; k++)
     {
-      req=req->np[Tail];
+      req=req->np[Head];
     }
     return req->data;
   }
@@ -109,7 +109,7 @@ static Data ith(Rep r, End e, int i)
     Node req=r->ht[Head];
     for(int k=0; k!=i; k++)
     {
-      req=req->np[Head];
+      req=req->np[Tail];
     }
     return req->data;
   }
@@ -167,6 +167,7 @@ static Data get(Rep r, End e)
       r->ht[Head]=NULL;
       r->ht[Tail]=NULL;
       free(r->ht[e]);
+      r->len=r->len-1;
       return back->data;
     }
   //}
@@ -226,8 +227,13 @@ static Data rem(Rep r, End e, Data d)
         else
         {
           Data rem_data=pos->data;
+          
           pos->np[Tail]->np[Head]=pos->np[Head];
           pos->np[Head]->np[Tail]=pos->np[Tail];
+          
+          //pos->np[Tail]->np[Head]=pos->np[Tail];
+          //pos->np[Head]->np[Tail]=pos->np[Head];
+
           free(pos);
           r->len=r->len-1;
           return rem_data;
@@ -238,6 +244,8 @@ static Data rem(Rep r, End e, Data d)
       {
         if(pos==r->ht[Head])
         {
+          printf("List does not contain this data.\n");
+          return NULL;
           break;
         }
         else
@@ -266,8 +274,8 @@ static Data rem(Rep r, End e, Data d)
         else
         {
           Data rem_data = pos->data;
-          pos->np[Tail]->np[Head]=pos->np[Head];
-          pos->np[Head]->np[Tail]=pos->np[Tail];
+          pos->np[Tail]->np[Head]=pos->np[Tail];
+          pos->np[Head]->np[Tail]=pos->np[Head];
           free(pos);
           r->len=r->len-1;
           return rem_data;
@@ -277,6 +285,8 @@ static Data rem(Rep r, End e, Data d)
       {
         if(pos==r->ht[Tail])
         {
+          printf("List does not contain this data.\n");
+          return NULL; 
           break;
         }
         else
@@ -293,8 +303,7 @@ static Data rem(Rep r, End e, Data d)
     return NULL;
   }
   //this section only returns in the break is activated.
-  printf("List does not contain this data.\n");
-  return NULL;  
+  return NULL;
 }
 
 extern Deq deq_new() {
