@@ -1,0 +1,18 @@
+GENERAL INFO:   
+    Author: Jeremy Bouchard
+    Completion Date: 9/4/21
+    Class: CS 452
+    Assignment: Homework #1: Queue<Anon>
+
+DESCRIPTION:
+    This code has the ability to create a double-linked queue. This queue can be parsed and edited from both the head->tail direction and the tail->head direction.
+
+HOW-TO-BUILD INSTRUCTIONS:
+    1. Open a terminal.
+    2. Type "make clean" to clear away unnecessary files.
+    3. Type "make run" to compile and run the code simmultaneously.
+        3.1 Running the code this way will take you through the testing sweet which prints to the terminal whether a test has passed or failed.
+    4. If it is needed to run valgrind, typing "make valgrind" will run the tests as normal before running a valgrind check and printing the results.
+
+ERRORS:
+    From my personal testing, everything works as expected and every situation should be handled properly.

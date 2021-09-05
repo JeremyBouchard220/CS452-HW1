@@ -8,4 +8,13 @@ static void seven();
 static void eight();
 static void nine();
 static void ten();
-
+static void eleven();
+static void twelve();
+static void thirteen();
+static void fourteen();
+static void fifteen();
+static void sixteen();
+static void seventeen();
+static void eighteen();
+static void nineteen();
+static void twenty();

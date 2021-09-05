@@ -38,7 +38,6 @@ static void put(Rep r, End e, Data d)
   {
     Node start = malloc(sizeof(struct Node));
     memset(start, 0, sizeof(*start));
-    //Node start = malloc(sizeof(*start));
     start->data=d;
     if(r->len==0)
     {
@@ -59,7 +58,6 @@ static void put(Rep r, End e, Data d)
   {
     Node start = malloc(sizeof(struct Node));
     memset(start, 0, sizeof(*start));
-    //Node start = malloc(sizeof(*start));
     start->data=d;
     if(r->len==0)
     {
@@ -125,9 +123,6 @@ static Data ith(Rep r, End e, int i)
  */
 static Data get(Rep r, End e) 
 {
-  //this section pops the tail
-  //if(e==Tail)
-  //{
     if(r->len > 2)
     {
       Data d=r->ht[e]->data;
@@ -151,7 +146,6 @@ static Data get(Rep r, End e)
       {
         i = 1;
       }
-      
       Node nxpvNode = r->ht[e]->np[i];
       nxpvNode->np[Head]=NULL;
       nxpvNode->np[Tail]=NULL;
@@ -170,24 +164,6 @@ static Data get(Rep r, End e)
       r->len=r->len-1;
       return back->data;
     }
-  //}
-  //this section pops the head
-  // if(e==Head)
-  // {
-  //   if(r->len > 0)
-  //   {
-  //     Data d=r->ht[Head]->data;
-  //     if(r->ht[Head]->np[Head] != NULL)
-  //     {
-  //       r->ht[Head]->np[Head]->np[Tail] = NULL;
-  //     }
-  //     Node ahead = r->ht[Head]->np[Head];
-  //     free(r->ht[Head]);
-  //     r->ht[Head]=ahead;
-  //     r->len=r->len-1;
-  //     return d;
-  //   }
-  // }
   //case for empty list
   if(r->len==0)
   {
@@ -260,6 +236,7 @@ static Data rem(Rep r, End e, Data d)
     Node pos=r->ht[Head];
     while(pos != NULL)
     {
+      //This section covers if the data is equal
       if(pos->data == d)
       {
         if(pos==r->ht[Head])
@@ -284,6 +261,7 @@ static Data rem(Rep r, End e, Data d)
           return rem_data;
         }
       }
+      //this section covers if data isn't equal
       else
       {
         if(pos==r->ht[Tail])
