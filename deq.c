@@ -228,12 +228,11 @@ static Data rem(Rep r, End e, Data d)
         {
           Data rem_data=pos->data;
           
-          pos->np[Tail]->np[Head]=pos->np[Head];
-          pos->np[Head]->np[Tail]=pos->np[Tail];
-          
-          //pos->np[Tail]->np[Head]=pos->np[Tail];
-          //pos->np[Head]->np[Tail]=pos->np[Head];
+          Node prevNode = pos->np[Head];
+          Node nextNode = pos->np[Tail];
 
+          prevNode->np[Tail]=nextNode;
+          nextNode->np[Head]=prevNode;
           free(pos);
           r->len=r->len-1;
           return rem_data;
@@ -250,7 +249,7 @@ static Data rem(Rep r, End e, Data d)
         }
         else
         {
-          pos=pos->np[Tail];
+          pos=pos->np[Head];
         }
       }
     }
@@ -273,9 +272,13 @@ static Data rem(Rep r, End e, Data d)
         }
         else
         {
-          Data rem_data = pos->data;
-          pos->np[Tail]->np[Head]=pos->np[Tail];
-          pos->np[Head]->np[Tail]=pos->np[Head];
+          Data rem_data=pos->data;
+          
+          Node prevNode = pos->np[Head];
+          Node nextNode = pos->np[Tail];
+
+          prevNode->np[Tail]=nextNode;
+          nextNode->np[Head]=prevNode;
           free(pos);
           r->len=r->len-1;
           return rem_data;
@@ -291,7 +294,7 @@ static Data rem(Rep r, End e, Data d)
         }
         else
         {
-          pos=pos->np[Head];
+          pos=pos->np[Tail];
         }
       }
     }
